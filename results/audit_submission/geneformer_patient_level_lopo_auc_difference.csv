@@ -1,0 +1,2 @@
+"contrast","observed_auc_difference","paired_patient_bootstrap_ci_low","paired_patient_bootstrap_ci_high","n_bootstrap"
+"Program_gene_expression_minus_Geneformer_embedding",-0.015625,-0.09375,0,10000

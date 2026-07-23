@@ -1,0 +1,55 @@
+{
+  "title": "Meningioma molecular aggressiveness and recurrence program",
+  "upload_type": "software",
+  "description": "Analysis code and lightweight derived materials for the associated study.",
+  "creators": [
+    {
+      "name": "Li, Mingyang"
+    },
+    {
+      "name": "Huo, Qingyi"
+    },
+    {
+      "name": "Wu, Zhimin"
+    },
+    {
+      "name": "Huang, Lixin"
+    },
+    {
+      "name": "Sun, Tao"
+    },
+    {
+      "name": "Zhao, Yibo"
+    },
+    {
+      "name": "Liang, Qingtian"
+    },
+    {
+      "name": "Ou, Yunmou"
+    },
+    {
+      "name": "Yang, Peixuan"
+    },
+    {
+      "name": "Zhu, Shunyan"
+    },
+    {
+      "name": "Xie, Yeqing"
+    },
+    {
+      "name": "Liu, Chichen"
+    },
+    {
+      "name": "Wang, Hui"
+    }
+  ],
+  "access_right": "open",
+  "license": "MIT",
+  "keywords": [
+    "meningioma",
+    "recurrence",
+    "transcriptomics",
+    "single-cell RNA-seq",
+    "Geneformer"
+  ]
+}

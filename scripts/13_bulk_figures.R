@@ -1,0 +1,98 @@
+# 13_bulk_figures.R — bulk 臂发表级图（program/GSEA/ROC/survival），不依赖 scRNA
+suppressMessages({library(ggplot2); library(patchwork); library(pROC); library(survival); library(GEOquery); library(DESeq2)})
+set.seed(42); options(timeout=300); dir.create("results/figures_pub", showWarnings=FALSE)
+th <- theme_classic(base_size=12, base_family="Arial")
+
+## A. 侵袭性评分 by WHO grade（GSE136661 训练 + GSE16581 外验）
+P136 <- readRDS("results/deg/GSE136661_aggressiveness_program.rds")
+d136 <- data.frame(score=P136$score, grade=P136$key$grade, cohort="GSE136661 (RNA-seq)")
+V16 <- readRDS("results/deg/GSE16581_program_validation.rds")
+d16 <- data.frame(score=V16$score, grade=as.character(V16$grade), cohort="GSE16581 (microarray)")
+d16$grade <- c("1"="I","2"="II","3"="III")[d16$grade]
+dd <- rbind(d136, d16); dd$grade<-factor(dd$grade,levels=c("I","II","III"))
+pA <- ggplot(dd,aes(grade,score,fill=grade))+geom_boxplot(outlier.size=.5)+facet_wrap(~cohort,scales="free_y")+
+  th+labs(x="WHO grade",y="Aggressiveness program score",title="Program score increases with grade (cross-cohort)")+
+  theme(legend.position="none")
+
+## B. Independent recurrence validation (GSE74385)
+m74385 <- read.csv("results/deg/GSE74385_program_recurrence.csv")
+m74385$outcome <- factor(m74385$outcome, levels=c("NR","M","R"))
+m74385_plot <- m74385[!is.na(m74385$outcome) & m74385$outcome %in% c("NR","R"),]
+m74385_plot$outcome <- droplevels(m74385_plot$outcome)
+p74385 <- wilcox.test(score~outcome, m74385_plot)$p.value
+endpoint <- read.csv("results/audit_submission/GSE74385_endpoint_sensitivity.csv")
+recurrence_row <- endpoint[endpoint$scenario=="recurrence_only_vs_nonrecurrent",]
+pB <- ggplot(m74385_plot, aes(outcome, score, fill=outcome))+
+  geom_boxplot(width=0.6, outlier.shape=NA)+
+  geom_jitter(width=0.12, size=1.6, alpha=0.7)+
+  scale_fill_manual(values=c(NR="#3b6ea5", R="#a14b3d"))+
+  th+theme(legend.position="none")+
+  labs(x="Recurrence outcome", y="Aggressiveness score",
+       title=sprintf("GSE74385 recurrence-only validation (n=%d)\nAUC %.2f; grade+batch Firth OR %.2f, p=%.3f",
+                     nrow(m74385_plot),recurrence_row$auc,recurrence_row$firth_score_OR,
+                     recurrence_row$firth_score_p))
+
+## C. Grade-I recurrence check in GSE74385 (batch-confounded)
+gg74385 <- getGEO(filename="data/raw/GSE74385/GSE74385_series_matrix.txt.gz", getGPL=FALSE)
+ph74385 <- pData(gg74385)
+bt <- gsub("batch: ", "", ph74385[, grep("batch", colnames(ph74385))[1]])
+names(bt) <- ph74385$title
+g1 <- m74385[m74385$grade==1,]
+g1$recur <- factor(g1$recur, levels=c("NonRecur","Recur/Malig"))
+g1$batch <- factor(bt[g1$title])
+pC <- ggplot(g1, aes(recur, score))+
+  geom_boxplot(width=0.55, outlier.shape=NA, fill="grey92")+
+  geom_jitter(aes(color=batch), width=0.12, size=2.3, alpha=0.9)+
+  scale_color_manual(values=c("1"="#3b6ea5","2"="#d98a00"))+
+  th+
+  labs(x="WHO grade I only", y="Aggressiveness score", color="Batch",
+       title="Grade-I recurrence signal is batch-confounded")
+
+## D. GSEA top pathways
+gs <- read.csv("results/deg/GSEA_GOBP_aggressiveness.csv")
+gs <- gs[order(gs$NES),]; topu<-tail(gs[gs$NES>0,],8); topd<-head(gs[gs$NES<0,],8)
+gg <- rbind(topu,topd); gg$Description<-factor(gg$Description,levels=gg$Description)
+pD <- ggplot(gg,aes(NES,Description,fill=NES>0))+geom_col()+th+
+  scale_fill_manual(values=c("#3b6ea5","#c0392b"),labels=c("down in high-grade","up in high-grade"))+
+  labs(y="",title="GSEA: OXPHOS/ribosome up, synaptic/Wnt down",fill="")+theme(legend.position="bottom")
+
+## E. ROC 曲线（经典 LASSO + program score）
+cb <- readRDS("results/deg/classical_baseline.rds")
+nested_lines <- readLines("results/deg/R5_nested_lasso_validation.txt")
+nested_auc <- as.numeric(sub(".*=", "", grep("^Mean outer-CV AUC=", nested_lines, value=TRUE)))
+nested_sd <- as.numeric(sub(".*=", "", grep("^SD across repeats=", nested_lines, value=TRUE)))
+roc_df <- function(r,lab) data.frame(spec=rev(r$specificities),sens=rev(r$sensitivities),model=lab)
+rc <- rbind(roc_df(cb$roc_g16,sprintf("LASSO grade (AUC %.2f)",auc(cb$roc_g16))),
+            roc_df(cb$roc_r16,sprintf("LASSO recurrence (AUC %.2f)",auc(cb$roc_r16))))
+pE <- ggplot(rc,aes(1-spec,sens,color=model))+geom_line(linewidth=1)+geom_abline(lty=2,color="grey")+th+
+  labs(x="1 - Specificity",y="Sensitivity",title=sprintf("Internal nested CV AUC=%.2f±%.2f\nCurves: external validation",nested_auc,nested_sd),color="")+
+  theme(legend.position=c(.6,.2))
+
+## F. 生存 KM（GSE16581 program-score 高 vs 低）
+g16<-getGEO(filename="data/raw/GSE16581_series_matrix.txt.gz",getGPL=FALSE); pd<-Biobase::pData(g16)
+tts<-suppressWarnings(as.numeric(pd[["tts:ch1"]])); ev<-ifelse(pd[["vital status:ch1"]]=="Deceased",1,ifelse(pd[["vital status:ch1"]]=="Alive",0,NA))
+grp<-ifelse(V16$score>median(V16$score),"High","Low")
+sd2<-data.frame(tts,ev,grp,score=V16$score)[!is.na(tts)&!is.na(ev),]
+fit<-survfit(Surv(tts,ev)~grp,data=sd2); cox_cont<-summary(coxph(Surv(tts,ev)~score,data=sd2))
+# 手动构建 KM step dataframe（不依赖 survminer）
+km<-do.call(rbind,lapply(seq_along(fit$strata),function(i){
+  idx<-(if(i==1)1 else sum(fit$strata[1:(i-1)])+1):sum(fit$strata[1:i])
+  data.frame(time=fit$time[idx],surv=fit$surv[idx],grp=sub("grp=","",names(fit$strata)[i]))}))
+km<-rbind(data.frame(time=0,surv=1,grp=unique(km$grp)),km)
+pF<-ggplot(km,aes(time,surv,color=grp))+geom_step(linewidth=1)+th+ylim(0,1)+
+  scale_color_manual(values=c(High="#c0392b",Low="#3b6ea5"))+
+  labs(x="Time (days)",y="Overall survival",color="Program",
+       title=sprintf("Overall survival (continuous Cox HR=%.2f, p=%.2f)",cox_cont$coefficients[2],cox_cont$coefficients[5]))+
+  theme(legend.position=c(.20,.22))
+
+tag_theme <- theme(text=element_text(family="Arial"),
+                   plot.title=element_text(family="Arial"),
+                   plot.tag=element_text(family="Arial", face="bold", size=14))
+fig <- (pA|pD)/(pE|pF)+plot_annotation(title="Meningioma molecular aggressiveness/recurrence program - bulk arm", tag_levels="a") & tag_theme
+ggsave("results/figures_pub/Figure_bulk_program.png",fig,width=15,height=11,dpi=150)
+ggsave("results/figures_pub/Figure_bulk_program.pdf",fig,width=15,height=11,device=cairo_pdf)
+fig_complete <- (pA|pB)/(pD|pE)+
+  plot_annotation(title="Meningioma molecular aggressiveness/recurrence program - integrated bulk validation", tag_levels="a") & tag_theme
+ggsave("results/figures_pub/Figure1_complete.png",fig_complete,width=15,height=10,dpi=300)
+ggsave("results/figures_pub/Figure1_complete.pdf",fig_complete,width=15,height=10,device=cairo_pdf)
+cat("saved results/figures_pub/Figure_bulk_program.{png,pdf} and Figure1_complete.{png,pdf}\n")

@@ -1,0 +1,15 @@
+Cross-platform signature-scoring sensitivity
+Genes measurable on both arrays: 16266
+GSE16581 recurrence fixed_200_original__z__available: platform-available genes (up/down 60/82), grade rho=0.563, recurrence AUC=0.964, p=3.33e-06
+GSE16581 recurrence fixed_200_original__rank__available: platform-available genes (up/down 60/82), grade rho=0.566, recurrence AUC=0.966, p=3.06e-06
+GSE16581 recurrence fixed_200_original__z__common: common genes (up/down 58/81), grade rho=0.575, recurrence AUC=0.962, p=3.62e-06
+GSE16581 recurrence fixed_200_original__rank__common: common genes (up/down 58/81), grade rho=0.573, recurrence AUC=0.966, p=3.06e-06
+GSE74385 recurrence_only fixed_200_original__z__available: platform-available genes (up/down 67/93), grade rho=0.664, recurrence AUC=0.822, p=0.000225
+GSE74385 recurrence_or_progression fixed_200_original__z__available: platform-available genes (up/down 67/93), grade rho=0.664, recurrence AUC=0.781, p=0.000468
+GSE74385 recurrence_only fixed_200_original__rank__available: platform-available genes (up/down 67/93), grade rho=0.648, recurrence AUC=0.818, p=0.000268
+GSE74385 recurrence_or_progression fixed_200_original__rank__available: platform-available genes (up/down 67/93), grade rho=0.648, recurrence AUC=0.771, p=0.000735
+GSE74385 recurrence_only fixed_200_original__z__common: common genes (up/down 58/81), grade rho=0.645, recurrence AUC=0.812, p=0.000349
+GSE74385 recurrence_or_progression fixed_200_original__z__common: common genes (up/down 58/81), grade rho=0.645, recurrence AUC=0.769, p=0.000834
+GSE74385 recurrence_only fixed_200_original__rank__common: common genes (up/down 58/81), grade rho=0.655, recurrence AUC=0.808, p=0.000414
+GSE74385 recurrence_or_progression fixed_200_original__rank__common: common genes (up/down 58/81), grade rho=0.655, recurrence AUC=0.760, p=0.00121
+Interpretation: rank scoring is computable for a single sample and common-gene scoring uses an identical gene set on both arrays.

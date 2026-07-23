@@ -1,0 +1,6 @@
+CopyKAT patient-balanced CNV sensitivity analysis
+Patients classified: 16; patients with >=10 aneuploid tumour cells: 15; median tumour cells classified per patient: 1406; median aneuploid tumour fraction: 0.893
+Balanced broad tumour/tumour-like pseudobulk: grade rho=0.868, p=2.708e-05; ANOVA p=0.0001942
+CopyKAT-aneuploid tumour pseudobulk: grade rho=0.868, p=2.708e-05; ANOVA p=0.0002431
+Broad versus CopyKAT-aneuploid patient scores: rho=0.993, p=2.168e-13
+Interpretation: CopyKAT is a sensitivity classifier on a balanced cell subsample and does not establish malignancy for every cell.

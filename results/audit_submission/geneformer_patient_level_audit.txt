@@ -1,0 +1,8 @@
+Patient-level Geneformer audit
+Patients: 16 (WHO I/II/III = 8/4/4)
+Primary patient-mean-embedding PCA: PC2 rho(grade)=-0.684, rho(program)=-0.665, patient-permutation p=0.05157 (null mean 0.496; 95th 0.684; 100000 permutations)
+Sensitivity cell-PCA-then-patient-mean: PC4 rho(grade)=-0.856, rho(program)=-0.688, patient-permutation p=0.0007 (null mean 0.464; 95th 0.677; 100000 permutations)
+Geneformer repeated nested LOPO mean AUC=0.977; median-prediction AUC=1.000 (patient bootstrap 95% CI 1.000-1.000)
+Classical repeated nested LOPO mean AUC=0.992; median-prediction AUC=0.984 (patient bootstrap 95% CI 0.906-1.000)
+AUC difference classical-minus-Geneformer=-0.016 (paired patient bootstrap 95% CI -0.094-0.000)
+Interpretation: all inferential units are patients; cell-weighted AUC is not reported.

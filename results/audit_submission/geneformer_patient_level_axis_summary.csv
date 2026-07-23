@@ -1,0 +1,3 @@
+"analysis","n_patients","best_pc","spearman_grade","spearman_program_score","permutation_unit","n_permutations","null_mean_abs_rho_max","null_q95_abs_rho_max","null_q99_abs_rho_max","empirical_p"
+"patient_mean_embedding_then_PCA_primary",16,2,-0.683877115055572,-0.664705882352941,"patient",100000,0.495551738162808,0.683877115055572,0.76696498884737,0.051569484305157
+"cell_PCA_then_patient_mean_sensitivity",16,4,-0.85644423754623,-0.688235294117647,"patient",100000,0.463715788440743,0.677485740148511,0.76696498884737,0.000699993000069999

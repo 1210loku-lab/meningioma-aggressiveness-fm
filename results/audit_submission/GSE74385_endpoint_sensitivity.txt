@@ -1,0 +1,6 @@
+GSE74385 endpoint sensitivity (all Firth models adjust grade and batch)
+recurrence_only_vs_nonrecurrent: n=45, events=22, AUC=0.822, Wilcoxon p=0.000225; Firth OR/SD=5.180 (95% CI 1.403-25.831), p=0.0118
+malignant_progression_only_vs_nonrecurrent: n=32, events= 9, AUC=0.681, Wilcoxon p=0.121; Firth OR/SD=4.176 (95% CI 1.131-35.578), p=0.0293
+recurrence_or_progression_composite: n=54, events=31, AUC=0.781, Wilcoxon p=0.000468; Firth OR/SD=3.195 (95% CI 1.320-9.978), p=0.00797
+composite_excluding_grade_III: n=34, events=15, AUC=0.800, Wilcoxon p=0.0032; Firth OR/SD=6.121 (95% CI 1.696-54.522), p=0.00223
+Interpretation: recurrence and malignant progression are reported separately; the composite is retained only as a sensitivity endpoint.

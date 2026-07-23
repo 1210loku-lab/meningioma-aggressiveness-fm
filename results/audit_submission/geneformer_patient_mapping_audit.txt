@@ -1,0 +1,9 @@
+Geneformer historical embedding patient-mapping audit
+Embedding rows: 1800
+Patients recovered: 16
+Direct row-wise grade agreement before mapping: 0.470
+Unique one-to-one mappings recovered: 1800
+Maximum absolute AggrScore matching difference: 9.4e-17
+Mapping tolerance: 1.0e-12
+All mapped grade labels agree: TRUE
+Mapped embedding: ./results/scrna/gf_out/tumor_emb_patient_mapped.csv

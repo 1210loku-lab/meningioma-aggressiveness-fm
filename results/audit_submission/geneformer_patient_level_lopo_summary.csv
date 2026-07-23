@@ -1,0 +1,3 @@
+"feature_set","n_patients","repeated_nested_LOPO_auc_mean","repeated_nested_LOPO_auc_sd","repeated_nested_LOPO_auc_min","repeated_nested_LOPO_auc_max","median_prediction_auc","bootstrap_ci_low","bootstrap_ci_high"
+"Geneformer_patient_mean_embedding",16,0.9765625,0.026811536825487,0.9375,1,1,1,1
+"Program_gene_patient_mean_expression",16,0.9921875,0.00823509807335516,0.984375,1,0.984375,0.90625,1
