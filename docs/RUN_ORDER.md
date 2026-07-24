@@ -118,7 +118,7 @@ The Geneformer-specific Python environment used for the completed analysis is al
 19. `scripts/17b_geneformer_embed.py`
     - Inputs: `results/scrna/gf_export/`, `results/scrna/gf_model_V2-104M/`
     - Outputs: `results/scrna/gf_out/geneformer_summary.txt`, `results/scrna/gf_out/tumor_emb.csv`
-    - Used in: Figure 5 zero-shot embedding source data.
+    - Used in: Supplementary Figure S4 zero-shot embedding source data.
 
 20. `scripts/33_geneformer_pc_permutation.py`
     - Compatibility launcher for `scripts/51` and `scripts/52`.
@@ -200,7 +200,12 @@ The Geneformer-specific Python environment used for the completed analysis is al
 41. `scripts/56_rebuild_review_response_figures.R`
     - Inputs: revised Geneformer, endpoint and scoring audit tables.
     - Outputs: `results/figures_pub/fig_geneformer_patient_level.*`, `fig_review_sensitivity.*`.
-    - Used in: revised Figure 5 and Figure S2.
+    - Used in: revised Supplementary Figure S4 and Figure S2.
+
+42. `scripts/60_GSE16581_firth_stability.R`
+    - Inputs: raw GSE16581 series matrix and GPL570 annotation, the fixed program object, and the GSE74385 endpoint-sensitivity table.
+    - Outputs: `results/deg/R6_GSE16581_firth_stability.txt`, `docs/Table_S9_GSE16581_firth_stability.csv`, `results/figures_pub/fig_GSE16581_firth_stability.*`, and `results/audit_submission/figure_source_data/Fig1_crosscohort_adjusted_OR.csv`.
+    - Purpose: independently reproduce the GSE16581 grade-adjusted Firth estimate, assess leave-one-recurrence-event-out and bootstrap stability, compare model and interval specifications, and supply Figure 1D / Supplementary Figure S3.
 
 26. `scripts/35_l1000_drug_reversal.py`
     - Input: `docs/Table_S2_aggressiveness_program_genes.csv`.

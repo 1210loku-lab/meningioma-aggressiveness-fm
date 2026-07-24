@@ -11,7 +11,7 @@ d16 <- data.frame(score=V16$score, grade=as.character(V16$grade), cohort="GSE165
 d16$grade <- c("1"="I","2"="II","3"="III")[d16$grade]
 dd <- rbind(d136, d16); dd$grade<-factor(dd$grade,levels=c("I","II","III"))
 pA <- ggplot(dd,aes(grade,score,fill=grade))+geom_boxplot(outlier.size=.5)+facet_wrap(~cohort,scales="free_y")+
-  th+labs(x="WHO grade",y="Aggressiveness program score",title="Program score increases with grade (cross-cohort)")+
+  th+labs(x="WHO grade",y="Program score",title="Program score across WHO grade")+
   theme(legend.position="none")
 
 ## B. Independent recurrence validation (GSE74385)
@@ -27,10 +27,10 @@ pB <- ggplot(m74385_plot, aes(outcome, score, fill=outcome))+
   geom_jitter(width=0.12, size=1.6, alpha=0.7)+
   scale_fill_manual(values=c(NR="#3b6ea5", R="#a14b3d"))+
   th+theme(legend.position="none")+
-  labs(x="Recurrence outcome", y="Aggressiveness score",
-       title=sprintf("GSE74385 recurrence-only validation (n=%d)\nAUC %.2f; grade+batch Firth OR %.2f, p=%.3f",
-                     nrow(m74385_plot),recurrence_row$auc,recurrence_row$firth_score_OR,
-                     recurrence_row$firth_score_p))
+  labs(x="Recurrence outcome", y="Program score",
+       title=sprintf("GSE74385 recurrence association (n=%d)\nFirth OR %.2f (grade+batch), p=%.3f; AUC %.2f",
+                     nrow(m74385_plot),recurrence_row$firth_score_OR,
+                     recurrence_row$firth_score_p,recurrence_row$auc))
 
 ## C. Grade-I recurrence check in GSE74385 (batch-confounded)
 gg74385 <- getGEO(filename="data/raw/GSE74385/GSE74385_series_matrix.txt.gz", getGPL=FALSE)
@@ -85,14 +85,28 @@ pF<-ggplot(km,aes(time,surv,color=grp))+geom_step(linewidth=1)+th+ylim(0,1)+
        title=sprintf("Overall survival (continuous Cox HR=%.2f, p=%.2f)",cox_cont$coefficients[2],cox_cont$coefficients[5]))+
   theme(legend.position=c(.20,.22))
 
+## Forest: cross-cohort grade-adjusted recurrence OR per 1-SD (replaces ROC panel in submission Fig 1)
+fst <- read.csv("results/audit_submission/figure_source_data/Fig1_crosscohort_adjusted_OR.csv")
+fst$cohort <- factor(fst$cohort, levels=rev(fst$cohort))
+fst$lab <- sprintf("OR %.2f (%.2f-%.0f)\nn=%d, %d events; adj. %s",
+                   fst$OR, fst$ci_low, fst$ci_high, fst$n, fst$events, fst$adjustment)
+pForest <- ggplot(fst, aes(OR, cohort))+
+  geom_vline(xintercept=1, linetype=3, color="grey50")+
+  geom_errorbar(aes(xmin=ci_low, xmax=ci_high), orientation="y", width=0.18, color="#a14b3d")+
+  geom_point(color="#a14b3d", size=3)+
+  geom_text(aes(label=lab), hjust=0, nudge_y=0.24, size=3, family="Arial")+
+  scale_x_log10(breaks=c(1,3,10,30,100,300), limits=c(0.9,600))+
+  th+labs(x="Firth recurrence OR per 1-SD (log scale)", y="",
+          title="Grade-adjusted recurrence association")
+
 tag_theme <- theme(text=element_text(family="Arial"),
                    plot.title=element_text(family="Arial"),
                    plot.tag=element_text(family="Arial", face="bold", size=14))
-fig <- (pA|pD)/(pE|pF)+plot_annotation(title="Meningioma molecular aggressiveness/recurrence program - bulk arm", tag_levels="a") & tag_theme
+fig <- (pA|pD)/(pE|pF)+plot_annotation(title="Grade-associated meningioma transcriptomic program - bulk analyses", tag_levels="a") & tag_theme
 ggsave("results/figures_pub/Figure_bulk_program.png",fig,width=15,height=11,dpi=150)
 ggsave("results/figures_pub/Figure_bulk_program.pdf",fig,width=15,height=11,device=cairo_pdf)
-fig_complete <- (pA|pB)/(pD|pE)+
-  plot_annotation(title="Meningioma molecular aggressiveness/recurrence program - integrated bulk validation", tag_levels="a") & tag_theme
+fig_complete <- (pA|pB)/(pD|pForest)+
+  plot_annotation(tag_levels="a") & tag_theme
 ggsave("results/figures_pub/Figure1_complete.png",fig_complete,width=15,height=10,dpi=300)
 ggsave("results/figures_pub/Figure1_complete.pdf",fig_complete,width=15,height=10,device=cairo_pdf)
 cat("saved results/figures_pub/Figure_bulk_program.{png,pdf} and Figure1_complete.{png,pdf}\n")

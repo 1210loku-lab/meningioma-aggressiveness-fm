@@ -1,0 +1,3 @@
+"cohort","platform","n","events","adjustment","OR","ci_low","ci_high","p"
+"GSE16581","Affymetrix GPL570",68,10,"grade",14.74,2.773,224.1,0.0001634
+"GSE74385 (recurrence-only)","Illumina HT-12",45,22,"grade + batch",5.18,1.403,25.83,0.01181

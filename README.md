@@ -6,7 +6,7 @@ This repository contains the analysis code and lightweight release materials for
 
 Working title:
 
-> Cross-cohort transcriptomics defines a grade-associated meningioma aggressiveness program enriched in recurrent tumours
+> A grade-associated meningioma transcriptomic program shows cross-cohort enrichment in recurrent tumours
 
 Primary target: Scientific Reports.  
 Fallback target: BMC Medical Genomics.

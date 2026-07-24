@@ -1,0 +1,53 @@
+=== R6: GSE16581 grade-adjusted Firth stability (event-limited defence) ===
+
+n=68  recurrence events=10  EPV(2 var)=5.00
+grade x recurrence:
+     recur
+grade  0  1
+    1 42  1
+    2 14  5
+    3  2  4
+
+[canonical] grade-adjusted Firth program OR per 1-SD = 14.74  95%CI[2.77, 224.07]  p=0.0001634 (profile-likelihood)
+  -> reproduces manuscript headline (OR 14.74, CI 2.77-224.07, p=1.63e-4).
+
+--- (1) leave-one-recurrence-event-out (drop each of the recurrence events) ---
+LOEO OR per 1-SD: min=10.90  median=14.23  max=18.54 ; all OR>1: TRUE ; all p<0.05: TRUE
+       OR    lo      hi     p
+1  11.740 2.371 175.498 0.000
+2  14.153 2.454 223.437 0.001
+3  18.538 3.006 392.223 0.000
+4  11.129 2.554 157.347 0.000
+5  15.825 2.814 270.468 0.000
+6  10.902 2.160 197.212 0.001
+7  14.891 2.683 227.243 0.000
+8  14.317 2.575 227.810 0.000
+9  14.902 2.751 225.514 0.000
+10 12.513 2.517 168.369 0.000
+
+--- (2) 2,000-bootstrap program coefficient (ps standardized once on full data) ---
+finite coefficient fits 2000/2000 ; coef median=2.86  OR median=17.55  OR 2.5%=4.45  OR 97.5%=1419.27  P(coef>0)=1.000
+bootstrap fitting warnings captured: 0
+
+--- (3) profile-likelihood vs Wald 95% CI (program OR per 1-SD) ---
+profile-likelihood: OR=14.74 [2.77, 224.07]
+Wald (symmetric)  : OR=14.74 [2.32, 93.55]
+  -> the manuscript reports the profile-likelihood CI, which is the appropriate interval for penalized rare-event models.
+
+--- (4) model comparison ---
+program-only            : OR/1-SD=22.94 [4.92, 327.41]  p=3.651e-08
+grade(categorical)+prog : OR/1-SD=14.74 [2.77, 224.07]  p=0.0001634
+grade(ordinal)+prog     : OR/1-SD=12.75 [2.80, 169.31]  p=0.0001234
+penalized log-likelihood: grade-only=-18.619 ; program-only=-11.068 ; grade+program=-10.718
+penalized-likelihood-ratio test, grade-only vs grade+program: chi-square=14.211, df=1, p=0.0001634
+
+wrote docs/Table_S9_GSE16581_firth_stability.csv
+wrote results/audit_submission/figure_source_data/Fig1_crosscohort_adjusted_OR.csv
+                      cohort          platform  n events    adjustment    OR
+1                   GSE16581 Affymetrix GPL570 68     10         grade 14.74
+2 GSE74385 (recurrence-only)    Illumina HT-12 45     22 grade + batch  5.18
+  ci_low ci_high         p
+1  2.773  224.10 0.0001634
+2  1.403   25.83 0.0118100
+
+wrote results/figures_pub/fig_GSE16581_firth_stability.{png,pdf}

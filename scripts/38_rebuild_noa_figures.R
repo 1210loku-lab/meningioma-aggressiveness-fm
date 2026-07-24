@@ -76,12 +76,16 @@ meas <- ev[!is.na(ev$scrna_grade_rho) & !is.na(ev$scrna_grade_fdr), ]
 meas$minuslog10_fdr <- -log10(pmax(meas$scrna_grade_fdr, 1e-300))
 sel_names <- c("PI3", "PITX1", "NF2", "LTK")
 sel <- meas[meas$symbol %in% sel_names, ]
+sel$label_hjust <- ifelse(sel$symbol == "PI3", 1.15,
+                         ifelse(sel$symbol == "PITX1", -0.15, -0.10))
+sel$label_vjust <- ifelse(sel$symbol == "PITX1", 1.6, -0.8)
 p4b <- ggplot(meas, aes(scrna_grade_rho, minuslog10_fdr)) +
   geom_hline(yintercept = -log10(0.10), linetype = 2, colour = "grey55") +
   geom_vline(xintercept = 0, linetype = 3, colour = "grey70") +
   geom_point(aes(colour = aligned_fdr10, size = pmax(scrna_tumor_specificity_log2, 0)), alpha = 0.72) +
-  geom_text(data = sel, aes(label = symbol), colour = "black", fontface = "bold",
-            size = 3.4, vjust = -0.8, check_overlap = FALSE) +
+  geom_text(data = sel, aes(label = symbol, hjust = label_hjust, vjust = label_vjust),
+            colour = "black", fontface = "bold", size = 3.4, check_overlap = FALSE) +
+  scale_x_continuous(expand = expansion(mult = c(0.05, 0.18))) +
   scale_colour_manual(values = c(`TRUE` = "#A14B3D", `FALSE` = "grey70"),
                       labels = c(`TRUE` = "Aligned, FDR<0.10", `FALSE` = "Other")) +
   scale_size_continuous(range = c(1.4, 5), name = "Tumour specificity\n(log2)") +
