@@ -4,6 +4,7 @@ suppressPackageStartupMessages({
   library(ggplot2)
   library(patchwork)
 })
+source("scripts/_fig_style.R")
 
 root <- normalizePath(getwd(), mustWork = TRUE)
 setwd(root)
@@ -65,10 +66,7 @@ p5d <- ggplot(lopo, aes(model, lopo_auc, group = repeat_id)) +
   labs(title = "Repeated nested leave-one-patient-out", x = NULL, y = "Patient-level AUC")
 
 fig5 <- (p5a | p5b) / (p5c | p5d) +
-  plot_annotation(title = "Patient-level Geneformer representation benchmark", tag_levels = "a") &
-  theme(text = element_text(family = "Arial"),
-        plot.title = element_text(family = "Arial", face = "bold"),
-        plot.tag = element_text(family = "Arial", face = "bold", size = 14))
+  plot_annotation(title = "Patient-level Geneformer representation benchmark", tag_levels = "A") & fig_style
 ggsave(file.path(out, "fig_geneformer_patient_level.pdf"), fig5, width = 13, height = 9, device = cairo_pdf)
 ggsave(file.path(out, "fig_geneformer_patient_level.png"), fig5, width = 13, height = 9, dpi = 400, bg = "white")
 
@@ -127,10 +125,7 @@ pSd <- ggplot(map_stat, aes(check, value, fill = check)) +
   theme_pub + theme(legend.position = "none") + labs(title = "Historical embedding mapping audit", x = NULL, y = "Proportion")
 
 figS2 <- (pSa | pSb) / (pSc | pSd) +
-  plot_annotation(title = "Endpoint, scoring and Geneformer-mapping sensitivity analyses", tag_levels = "a") &
-  theme(text = element_text(family = "Arial"),
-        plot.title = element_text(family = "Arial", face = "bold"),
-        plot.tag = element_text(family = "Arial", face = "bold", size = 14))
+  plot_annotation(title = "Endpoint, scoring and Geneformer-mapping sensitivity analyses", tag_levels = "A") & fig_style
 ggsave(file.path(out, "fig_review_sensitivity.pdf"), figS2, width = 13, height = 9, device = cairo_pdf)
 ggsave(file.path(out, "fig_review_sensitivity.png"), figS2, width = 13, height = 9, dpi = 400, bg = "white")
 

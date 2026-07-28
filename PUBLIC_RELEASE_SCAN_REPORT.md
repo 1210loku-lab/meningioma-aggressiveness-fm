@@ -1,6 +1,6 @@
 # Public-release preflight scan
 
-Generated: 2026-07-24
+Generated: 2026-07-28
 
 - absolute_local_paths: 0
 - cross_project_leakage: 0
@@ -12,6 +12,6 @@ Generated: 2026-07-24
 - git_history: not present in this clean export; initialize a new repository with one commit
 - recommended_initial_commit_message: Initial public release for manuscript reproducibility
 - files_over_50MB: 0
-- files_scanned: 106
+- files_scanned: 125
 
 Result: PASS.

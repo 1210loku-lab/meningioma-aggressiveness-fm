@@ -3,6 +3,7 @@
 suppressMessages({
   library(Seurat); library(harmony); library(Matrix); library(ggplot2); library(patchwork)
 })
+source("scripts/_fig_style.R")
 set.seed(42)
 options(future.globals.maxSize=8e9)
 root <- normalizePath(".")
@@ -79,9 +80,7 @@ p2 <- FeaturePlot(obj,"AggrScore",raster=TRUE)+
   labs(title="Bulk-derived program score (descriptive)",x="UMAP 1",y="UMAP 2")
 p3 <- DimPlot(obj,group.by="patient",raster=TRUE)+
   labs(title="Patient of origin",x="UMAP 1",y="UMAP 2")
-fig <- (p1|p2|p3)+plot_annotation(tag_levels="a") &
-  theme(plot.tag=element_text(family="Arial",face="bold",size=14))
-ggsave(file.path(root,"results","scrna","fig_umap_celltype_v2.png"),fig,width=19,height=5.5,dpi=300,bg="white")
-ggsave(file.path(root,"results","scrna","fig_umap_celltype_v2.pdf"),fig,width=19,height=5.5,bg="white")
+fig <- (p1|p2|p3)+plot_annotation(tag_levels="A") & fig_style
+save_fig(fig, file.path(root,"results","scrna","fig_umap_celltype_v2"), width=19, height=5.5)
 cat("Figure 2 rebuilt from raw matrices; QC cells=",ncol(obj),"\n",sep="")
 print(table(obj$celltype))

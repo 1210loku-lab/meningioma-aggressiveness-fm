@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "Please cite the archived release and associated manuscript."
-title: "A grade-associated meningioma transcriptomic program shows cross-cohort enrichment in recurrent tumours"
-version: "1.0.0-submission"
-date-released: "2026-07-23"
+title: "A proliferation-dominated transcriptomic aggressiveness program associated with WHO grade and recurrence across independent meningioma cohorts"
+version: "1.2.0"
+date-released: "2026-07-28"
 authors:
   - family-names: "Li"
     given-names: "Mingyang"

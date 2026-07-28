@@ -11,6 +11,7 @@
 # scripts/30 so the canonical OR must reproduce; a mismatch is reported, not hidden.
 # Outputs: R6 log, Table S9 csv, FigS3 (Arial), and cross-cohort forest source data.
 suppressMessages({library(GEOquery); library(logistf); library(ggplot2); library(patchwork)})
+source("scripts/_fig_style.R")
 set.seed(42)
 dir.create("results/figures_pub", showWarnings=FALSE, recursive=TRUE)
 dir.create("results/audit_submission/figure_source_data", showWarnings=FALSE, recursive=TRUE)
@@ -255,10 +256,8 @@ pd_ci <- ggplot(ci_cmp, aes(OR, method)) +
 
 figS3 <- pa + pb + pc + pd_ci +
   plot_layout(design="AB\nCD", heights=c(1,0.9)) +
-  plot_annotation(tag_levels="a") &
-  theme(plot.tag=element_text(family="Arial", face="bold", size=13))
-ggsave("results/figures_pub/fig_GSE16581_firth_stability.png", figS3, width=11, height=8, dpi=300)
-ggsave("results/figures_pub/fig_GSE16581_firth_stability.pdf", figS3, width=11, height=8, device=cairo_pdf)
+  plot_annotation(tag_levels="A") & fig_style
+save_fig(figS3, "results/figures_pub/fig_GSE16581_firth_stability", width=11, height=8)
 cat("\nwrote results/figures_pub/fig_GSE16581_firth_stability.{png,pdf}\n")
 
 sink(); cat("\nALL-DONE -> results/deg/R6_GSE16581_firth_stability.txt\n")

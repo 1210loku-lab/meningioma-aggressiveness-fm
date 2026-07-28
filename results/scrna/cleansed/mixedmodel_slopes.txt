@@ -1,0 +1,4 @@
+cleansed cell-level mixed model (n=55181 cells, 16 patients)
+unadjusted grade_ord slope=0.052  t=4.65
+adjusted   grade_ord slope=0.042  t=3.77
+(OLD: unadjusted 0.051 t=5.9 ; adjusted 0.040 t=4.7)

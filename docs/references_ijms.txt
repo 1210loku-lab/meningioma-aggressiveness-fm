@@ -1,0 +1,31 @@
+1. Ostrom QT, Price M, Neff C, et al. CBTRUS Statistical Report: Primary Brain and Other Central Nervous System Tumors Diagnosed in the United States in 2016—2020. Neuro Oncol. 2023; 25: iv1-iv99.
+2. Patel AJ, Wan YW, Al-Ouran R, et al. Molecular profiling predicts meningioma recurrence and reveals loss of DREAM complex repression in aggressive tumors. Proc Natl Acad Sci USA. 2019; 116: 21715-21726.
+3. Sahm F, Schrimpf D, Stichel D, et al. DNA methylation-based classification and grading system for meningioma: a multicentre, retrospective analysis. Lancet Oncol. 2017; 18: 682-694.
+4. Choudhury A, Magill ST, Eaton CD, et al. Meningioma DNA methylation groups identify biological drivers and therapeutic vulnerabilities. Nat Genet. 2022; 54: 649-659.
+5. Louis DN, Perry A, Wesseling P, et al. The 2021 WHO Classification of Tumors of the Central Nervous System: a summary. Neuro Oncol. 2021; 23: 1231-1251.
+6. Nassiri F, Liu J, Patil V, et al. A clinically applicable integrative molecular classification of meningiomas. Nature. 2021; 597: 119-125.
+7. Maas SLN, Stichel D, Hielscher T, et al. Integrated Molecular-Morphologic Meningioma Classification: A Multicenter Retrospective Analysis, Retrospectively and Prospectively Validated. J Clin Oncol. 2021; 39: 3839-3852.
+8. Vasudevan HN, Braunstein SE, Phillips JJ, et al. Comprehensive Molecular Profiling Identifies FOXM1 as a Key Transcription Factor for Meningioma Proliferation. Cell Rep. 2018; 22: 3672-3683.
+9. Ke C, Huang B, Xiang J, et al. Secreted clusterin inhibits tumorigenesis by modulating tumor cells and macrophages in human meningioma. Neuro Oncol. 2024; 26: 1262-1279.
+10. Landry AP, Yefet LS, Wang JZ, et al. Spatially resolved single-cell analyses of human meningioma identify novel cell states influencing tumor microenvironment and progression. Nat Genet. 2026; 58: 1383-1395.
+11. Theodoris CV, Xiao L, Chopra A, et al. Transfer learning enables predictions in network biology. Nature. 2023; 618: 616-624.
+12. Cui H, Wang C, Maan H, et al. scGPT: toward building a foundation model for single-cell multi-omics using generative AI. Nat Methods. 2024; 21: 1470-1480.
+13. Clark VE, Erson-Omay EZ, Serin A, et al. Genomic analysis of non-NF2 meningiomas reveals mutations in TRAF7, KLF4, AKT1, and SMO. Science. 2013; 339: 1077-1080.
+14. Khan I, Baeesa S, Bangash M, et al. Pleomorphism and drug resistant cancer stem cells are characteristic of aggressive primary meningioma cell lines. Cancer Cell Int. 2017; 17: 72.
+15. Pereda MP, Hopfner U, Pagotto U, et al. Retinoic acid stimulates meningioma cell adhesion to the extracellular matrix and inhibits invasion. Br J Cancer. 1999; 81: 381-386.
+16. Lee JY, Lee EJ, Seo BY, et al. Single-cell analysis reveals a longitudinal trajectory of meningioma evolution and heterogeneity. Nat Commun. 2025; 16: 5481.
+17. Behling F, Fodi C, Hoffmann E, et al. The role of Simpson grading in meningiomas after integration of the updated WHO classification and adjuvant radiotherapy. Neurosurg Rev. 2021; 44: 2329-2336.
+18. Love MI, Huber W, Anders S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biol. 2014; 15: 550.
+19. Yu G, Wang LG, Han Y, et al. clusterProfiler: an R Package for Comparing Biological Themes Among Gene Clusters. OMICS. 2012; 16: 284-287.
+20. Friedman J, Hastie T, Tibshirani R. Regularization Paths for Generalized Linear Models via Coordinate Descent. J Stat Softw. 2010; 33: 1-22.
+21. Robin X, Turck N, Hainard A, et al. pROC: an open-source package for R and S+ to analyze and compare ROC curves. BMC Bioinformatics. 2011; 12: 77.
+22. Heinze G, Schemper M. A solution to the problem of separation in logistic regression. Stat Med. 2002; 21: 2409-2419.
+23. Becht E, Giraldo NA, Lacroix L, et al. Estimating the population abundance of tissue-infiltrating immune and stromal cell populations using gene expression. Genome Biol. 2016; 17: 218.
+24. Jin S, Guerrero-Juarez CF, Zhang L, et al. Inference and analysis of cell-cell communication using CellChat. Nat Commun. 2021; 12: 1088.
+25. Hao Y, Stuart T, Kowalski MH, et al. Dictionary learning for integrative, multimodal and scalable single-cell analysis. Nat Biotechnol. 2024; 42: 293-304.
+26. Korsunsky I, Millard N, Fan J, et al. Fast, sensitive and accurate integration of single-cell data with Harmony. Nat Methods. 2019; 16: 1289-1296.
+27. Bates D, Mächler M, Bolker B, et al. Fitting linear mixed-effects models using lme4. J Stat Softw. 2015; 67: 1-48.
+28. Gao R, Bai S, Henderson YC, et al. Delineating copy number and clonal substructure in human tumors from single-cell transcriptomes. Nat Biotechnol. 2021; 39: 599-608.
+29. Harrell FE Jr. Regression Modeling Strategies: With Applications to Linear Models, Logistic and Ordinal Regression, and Survival Analysis. 2nd ed. New York: Springer; 2015.
+30. Wang Z, Lachmann A, Keenan AB, et al. L1000FWD: fireworks visualization of drug-induced transcriptomic signatures. Bioinformatics. 2018; 34: 2150-2152.
+31. Gavish A, Tyler M, Greenwald AC, et al. Hallmarks of transcriptional intratumour heterogeneity across a thousand tumours. Nature. 2023; 618: 598-606.

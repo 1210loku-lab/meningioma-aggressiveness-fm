@@ -21,16 +21,17 @@ ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / "submission" / "Scientific_Reports_20260715"
 BASE = PACKAGE / "manuscript" / "Meningioma_Scientific_Reports_submission.docx"
 FIGURE_DIR = PACKAGE / "figure_jpg"
-OUTPUT = PACKAGE / "manuscript" / "Meningioma_Scientific_Reports_submission_with_current_final_figures.docx"
+OUTPUT = PACKAGE / "manuscript" / "Meningioma_Scientific_Reports_submission_with_all_figures.docx"
 
 FIGURES = [
     ("Figure 1", "Fig1.jpg"),
     ("Figure 2", "Fig2.jpg"),
     ("Figure 3", "Fig3.jpg"),
     ("Figure 4", "Fig4.jpg"),
-    ("Figure 5", "Fig5.jpg"),
     ("Supplementary Figure S1", "FigS1.jpg"),
     ("Supplementary Figure S2", "FigS2.jpg"),
+    ("Supplementary Figure S3", "FigS3.jpg"),
+    ("Supplementary Figure S4", "FigS4.jpg"),
 ]
 
 

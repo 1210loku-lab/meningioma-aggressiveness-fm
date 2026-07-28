@@ -1,5 +1,6 @@
 # 13_bulk_figures.R — bulk 臂发表级图（program/GSEA/ROC/survival），不依赖 scRNA
 suppressMessages({library(ggplot2); library(patchwork); library(pROC); library(survival); library(GEOquery); library(DESeq2)})
+source("scripts/_fig_style.R")
 set.seed(42); options(timeout=300); dir.create("results/figures_pub", showWarnings=FALSE)
 th <- theme_classic(base_size=12, base_family="Arial")
 
@@ -99,14 +100,9 @@ pForest <- ggplot(fst, aes(OR, cohort))+
   th+labs(x="Firth recurrence OR per 1-SD (log scale)", y="",
           title="Grade-adjusted recurrence association")
 
-tag_theme <- theme(text=element_text(family="Arial"),
-                   plot.title=element_text(family="Arial"),
-                   plot.tag=element_text(family="Arial", face="bold", size=14))
-fig <- (pA|pD)/(pE|pF)+plot_annotation(title="Grade-associated meningioma transcriptomic program - bulk analyses", tag_levels="a") & tag_theme
-ggsave("results/figures_pub/Figure_bulk_program.png",fig,width=15,height=11,dpi=150)
-ggsave("results/figures_pub/Figure_bulk_program.pdf",fig,width=15,height=11,device=cairo_pdf)
+fig <- (pA|pD)/(pE|pF)+plot_annotation(title="Grade-associated meningioma transcriptomic program - bulk analyses", tag_levels="A") & fig_style
+save_fig(fig, "results/figures_pub/Figure_bulk_program", width=15, height=11)
 fig_complete <- (pA|pB)/(pD|pForest)+
-  plot_annotation(tag_levels="a") & tag_theme
-ggsave("results/figures_pub/Figure1_complete.png",fig_complete,width=15,height=10,dpi=300)
-ggsave("results/figures_pub/Figure1_complete.pdf",fig_complete,width=15,height=10,device=cairo_pdf)
+  plot_annotation(tag_levels="A") & fig_style
+save_fig(fig_complete, "results/figures_pub/Figure1_complete", width=15, height=10)
 cat("saved results/figures_pub/Figure_bulk_program.{png,pdf} and Figure1_complete.{png,pdf}\n")

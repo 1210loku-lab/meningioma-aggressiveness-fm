@@ -228,3 +228,30 @@ The Geneformer-specific Python environment used for the completed analysis is al
     - Input: `results/scrna/GSE183655_annotated.rds`
     - Outputs: `results/descriptive/23_cellchat_results.rds`, `results/descriptive/23_fig_cellchat_network.pdf`, `results/descriptive/23_fig_cellchat_pathways.pdf`
     - Used in: descriptive supplementary cell-cell communication analysis.
+
+## Lineage-marker Exclusion Sensitivity and Tumour-cell Metaprograms (Fig. S5, Table S10)
+
+30. `scripts/70_tumor_metaprograms_GSE206647.R`
+    - Input: `results/scrna/GSE206647_processed.rds`
+    - Outputs: `results/scrna/metaprograms/*` (exploratory per-patient NMF metaprograms, all tumour-annotated cells)
+    - Purpose: per-patient NMF -> cross-patient metaprogram discovery paradigm (exploratory pass before lineage-marker exclusion).
+
+31. `scripts/71_cleanse_reverify_nmf_GSE206647.R`
+    - Input: `results/scrna/GSE206647_processed.rds`, `docs/Table_S2_aggressiveness_program_genes.csv`
+    - Outputs: `results/scrna/cleansed/*` (per-patient exclusion log, re-verified AggrScore-grade, gene-evidence, mixed model, clean-cell list), `results/scrna/metaprograms_cleansed/*`
+    - Purpose: predefined lineage-marker exclusion (independent of program genes/scores) + independent re-verification of single-cell results + NMF metaprograms on lineage-filtered cells.
+
+32. `scripts/72_tighten_cleanse_nmf.R`
+    - Input: as script 71
+    - Output: `results/scrna/metaprograms_cleansed2/*`
+    - Purpose: exploratory more-stringent exclusion used only for metaprogram signature-stability (Jaccard) comparison; not an independent sensitivity tier.
+
+33. `scripts/75_patient_level_metaprogram_correlation.R`
+    - Input: `results/scrna/GSE206647_processed.rds`, `results/scrna/cleansed/clean_cells.rds`, `results/scrna/metaprograms_cleansed/metaprogram_signatures.csv`
+    - Output: `results/scrna/metaprograms_cleansed/metaprogram_patient_activity.csv`, `metaprogram_summary_patientlevel.csv`
+    - Purpose: patient-level metaprogram <-> aggressiveness-score Spearman correlation over the NMF-eligible patients (Fig. S5B, Table S10) + BH-FDR of metaprogram grade associations.
+
+34. `scripts/73_supp_figure_cleanse_nmf.R`
+    - Input: `results/scrna/cleansed/*`, `results/scrna/metaprograms_cleansed/metaprogram_summary_patientlevel.csv`
+    - Output: `results/figures_pub/FigS5_cleanse_metaprograms.{pdf,png}`
+    - Purpose: Supplementary Fig. S5 (exclusion robustness of the grade association; metaprograms by grade association vs patient-level score correlation).

@@ -1,5 +1,6 @@
 # 16b_fig_GSE74385.R — GSE74385 复发外验图（程序评分 × outcome 全级别 + grade-I 特异）
 suppressMessages({library(ggplot2); library(patchwork)})
+source("scripts/_fig_style.R")
 m<-read.csv("results/deg/GSE74385_program_recurrence.csv")
 m$outcome<-factor(m$outcome,levels=c("NR","M","R"))
 mk<-m[!is.na(m$outcome),]
@@ -23,6 +24,6 @@ pB<-ggplot(g1,aes(recur,score))+geom_boxplot(width=0.55,outlier.shape=NA,fill="g
   theme_classic(base_size=12)+
   labs(x="WHO grade I only",y="Aggressiveness score",color="Batch",
        title="Grade-I subset: CONFOUNDED by batch\n(all recurrent=batch2) — hypothesis-generating only")
-ggsave("results/figures_pub/fig_GSE74385_recurrence.png",pA|pB,width=11,height=4.6,dpi=150)
-ggsave("results/figures_pub/fig_GSE74385_recurrence.pdf",pA|pB,width=11,height=4.6)
+figS1 <- (pA|pB)+plot_annotation(tag_levels="A") & fig_style
+save_fig(figS1, "results/figures_pub/fig_GSE74385_recurrence", width=11, height=4.6)
 cat("saved fig_GSE74385_recurrence.{png,pdf}\n")
